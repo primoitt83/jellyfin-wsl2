@@ -1,16 +1,16 @@
 # jellyfin-wsl2
 
-## branch main
+## branch mesa=23.2.1
 ````
 /usr/lib/jellyfin-ffmpeg/vainfo --display drm --device /dev/dri/renderD128
 Trying display: drm
 libva info: VA-API version 1.22.0
 libva info: Trying to open /usr/lib/jellyfin-ffmpeg/lib/dri/d3d12_drv_video.so
 libva info: Trying to open /usr/lib/x86_64-linux-gnu/dri/d3d12_drv_video.so
-libva info: Found init function __vaDriverInit_1_17
+libva info: Found init function __vaDriverInit_1_14
 libva info: va_openDriver() returns 0
 vainfo: VA-API version: 1.22 (libva 2.22.0)
-vainfo: Driver version: Mesa Gallium driver 22.3.6 for D3D12 (Intel(R) Iris(R) Xe Graphics)
+vainfo: Driver version: Mesa Gallium driver 23.2.1-1ubuntu3.1~22.04.3 for D3D12 (Intel(R) Iris(R) Xe Graphics)
 vainfo: Supported profile and entrypoints
       VAProfileH264ConstrainedBaseline:	VAEntrypointVLD
       VAProfileH264ConstrainedBaseline:	VAEntrypointEncSlice
@@ -37,7 +37,7 @@ cd /tmp
 
 #### decoding h264
 ````
-/usr/lib/jellyfin-ffmpeg/ffmpeg -benchmark -hwaccel vaapi -vaapi_device /dev/dri/renderD128 -c:v h264 -i BBB.mp4  -f null -
+ /usr/lib/jellyfin-ffmpeg/ffmpeg -benchmark -hwaccel vaapi -vaapi_device /dev/dri/renderD128 -c:v h264 -i BBB.mp4  -f null -
 ffmpeg version 7.0.2-Jellyfin Copyright (c) 2000-2024 the FFmpeg developers
   built with gcc 12 (Debian 12.2.0-14)
   configuration: --prefix=/usr/lib/jellyfin-ffmpeg --target-os=linux --extra-version=Jellyfin --disable-doc --disable-ffplay --disable-ptx-compression --disable-static --disable-libxcb --disable-sdl2 --disable-xlib --enable-lto=auto --enable-gpl --enable-version3 --enable-shared --enable-gmp --enable-gnutls --enable-chromaprint --enable-opencl --enable-libdrm --enable-libxml2 --enable-libass --enable-libfreetype --enable-libfribidi --enable-libfontconfig --enable-libharfbuzz --enable-libbluray --enable-libmp3lame --enable-libopus --enable-libtheora --enable-libvorbis --enable-libopenmpt --enable-libdav1d --enable-libsvtav1 --enable-libwebp --enable-libvpx --enable-libx264 --enable-libx265 --enable-libzvbi --enable-libzimg --enable-libfdk-aac --arch=amd64 --enable-libshaderc --enable-libplacebo --enable-vulkan --enable-vaapi --enable-amf --enable-libvpl --enable-ffnvcodec --enable-cuda --enable-cuda-llvm --enable-cuvid --enable-nvdec --enable-nvenc
@@ -95,10 +95,10 @@ Output #0, null, to 'pipe:':
 KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
 KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
 KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
-[out#0/null @ 0x558c6d20dbc0] video:6151KiB audio:102752KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
-frame=14315 fps=118 q=-0.0 Lsize=N/A time=00:09:56.45 bitrate=N/A speed= 4.9x    
-bench: utime=24.772s stime=31.409s rtime=121.603s
-bench: maxrss=182804KiB
+[out#0/null @ 0x55b519521280] video:6151KiB audio:102752KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+frame=14315 fps=139 q=-0.0 Lsize=N/A time=00:09:56.45 bitrate=N/A speed=5.78x    
+bench: utime=24.293s stime=30.843s rtime=103.162s
+bench: maxrss=187668KiB
 ````
 
 #### encoding h265
@@ -142,7 +142,7 @@ KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
 KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
 KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
 KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
-[hevc_vaapi @ 0x561e019f0380] Driver does not support some wanted packed headers (wanted 0xd, found 0x1).
+[hevc_vaapi @ 0x56406ad498c0] Driver does not support some wanted packed headers (wanted 0xd, found 0x1).
 KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
 Output #0, mp4, to 'output.mp4':
   Metadata:
@@ -161,9 +161,6 @@ Output #0, mp4, to 'output.mp4':
         vendor_id       : [0][0][0][0]
         encoder         : Lavc61.3.100 hevc_vaapi
 KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
-KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
-KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
-KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
 KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission deniedte=N/A speed=N/A    
 KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
 KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
@@ -171,14 +168,11 @@ KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
 KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
 KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
 KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
-KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
-KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
-KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
-KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied.33 bitrate=   1.1kbits/s speed=0.333x    
-[out#0/mp4 @ 0x561e019ba540] video:1305KiB audio:0KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 0.307109%
-frame=  300 fps= 38 q=-0.0 Lsize=    1309KiB time=00:00:09.96 bitrate=1076.2kbits/s speed=1.27x    
-bench: utime=1.686s stime=1.706s rtime=7.837s
-bench: maxrss=259352KiB
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied.13 bitrate=   2.6kbits/s speed=0.133x    
+[out#0/mp4 @ 0x56406ad14c80] video:1242KiB audio:0KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 0.346226%
+frame=  300 fps= 36 q=-0.0 Lsize=    1246KiB time=00:00:09.96 bitrate=1024.5kbits/s speed= 1.2x    
+bench: utime=1.911s stime=1.721s rtime=8.275s
+bench: maxrss=259756KiB
 ````
 
 
